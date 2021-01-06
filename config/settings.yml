@@ -1,0 +1,4 @@
+plugins:
+  csound_plugin_enabled:
+    default: true
+    client: true
