@@ -1,5 +1,4 @@
 module CsoundPlugin
-
   class CsoundPluginController < ::ApplicationController
     requires_plugin CsoundPlugin
 
@@ -8,14 +7,14 @@ module CsoundPlugin
     def index
     end
   end
-
-  class ::Jobs::NotifyMailingListSubscribers
-    module NoMailinglistReplies
-      def execute(args)
-        return
-      end
-    end
-    singleton_class.prepend NoMailinglistReplies
-  end
-
 end
+
+
+# class ::Jobs::NotifyMailingListSubscribers
+#   module NoMailinglistReplies
+#     def execute(args)
+#       return
+#     end
+#   end
+#   singleton_class.prepend NoMailinglistReplies
+# end

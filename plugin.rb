@@ -18,4 +18,18 @@ load File.expand_path('lib/csound_plugin/engine.rb', __dir__)
 
 after_initialize do
   # https://github.com/discourse/discourse/blob/master/lib/plugin/instance.rb
+  class ::PostJobsEnqueuer
+    module NoMailinglistReplies
+      def after_post_create
+        super()
+        TopicTrackingState.publish_unmuted(@post.topic)
+        if @post.post_number > 1
+          TopicTrackingState.publish_muted(@post.topic)
+          TopicTrackingState.publish_unread(@post)
+        end
+        TopicTrackingState.publish_latest(@topic, @post.whisper?)
+      end
+    end
+    singleton_class.prepend NoMailinglistReplies
+  end
 end
